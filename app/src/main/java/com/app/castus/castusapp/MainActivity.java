@@ -1,9 +1,11 @@
 package com.app.castus.castusapp;
 
+import android.content.res.Configuration;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.widget.Toast;
 
 import com.app.castus.classes.MesService;
 import com.app.castus.gererpages.ServiceRecyclerViewAdapter;
@@ -18,12 +20,20 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
        listServices = initServices(listServices);
 
         recyclerView = (RecyclerView) findViewById(R.id.recycleview_id_service);
 
         ServiceRecyclerViewAdapter serviceRecyclerViewAdapter = new ServiceRecyclerViewAdapter(listServices , this);
+
+        if(getResources().getDisplayMetrics().widthPixels>getResources().getDisplayMetrics().
+                heightPixels)
+        {
+            recyclerView.setLayoutManager(new GridLayoutManager(this, 3));
+        }
+        else
         recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
         recyclerView.setAdapter(serviceRecyclerViewAdapter);
 
